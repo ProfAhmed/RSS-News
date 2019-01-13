@@ -7,7 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface IrApiService {
-    @GET("top-headlines?apiKey=355ba2159b7c467fb0b4ece42f10fc7e")
-    Call<ApiResponseModel> getAllNews(@Query("sources") String sources);
-
+    @GET("api.json?")
+    Call<ApiResponseModel> getAllNews(@Query("rss_url") String rssUrl);
 }

@@ -6,18 +6,19 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.pro.ahmed.rssnews.data.Repository;
-import com.pro.ahmed.rssnews.data.models.NewsModel;
+import com.pro.ahmed.rssnews.data.models.ItemModel;
+import com.pro.ahmed.rssnews.data.models.RssSourcesModel;
 
 import java.util.List;
 
 public class NewsViewModel extends ViewModel {
     private final String TAG = this.getClass().getName();
-    private LiveData<List<NewsModel>> listNews;
+    private LiveData<List<ItemModel>> listNews;
 
-    public LiveData<List<NewsModel>> getListNews() {
+    public LiveData<List<ItemModel>> getListNews() {
         if (listNews == null) {
             Log.e(TAG, "_ListNewsIsNULL");
-            listNews = new MutableLiveData<List<NewsModel>>();
+            listNews = new MutableLiveData<List<ItemModel>>();
             loadItemsFromRepository();
         }
         Log.e(TAG, "_ReturningFromViewModel");
@@ -29,7 +30,7 @@ public class NewsViewModel extends ViewModel {
         listNews = Repository.getInstance().getAllNews();
     }
 
-    public void refreshNews(String sources) {
+    public void refreshNews(List<RssSourcesModel> sources) {
         Repository.getInstance().refreshNews(sources);
     }
 }

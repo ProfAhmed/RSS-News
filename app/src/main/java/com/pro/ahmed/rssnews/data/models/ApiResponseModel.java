@@ -1,22 +1,19 @@
 package com.pro.ahmed.rssnews.data.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class ApiResponseModel {
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("totalResults")
-    @Expose
-    private int totalResults;
-    @SerializedName("articles")
-    @Expose
-    private List<NewsModel> articles = null;
+
+    public String status;
+    public FeedModel feed;
+    public List<ItemModel> items = null;
+    public String message;
 
     public ApiResponseModel() {
+    }
+
+    public ApiResponseModel(String status) {
+        this.status = status;
     }
 
     public String getStatus() {
@@ -27,19 +24,27 @@ public class ApiResponseModel {
         this.status = status;
     }
 
-    public int getTotalResults() {
-        return totalResults;
+    public FeedModel getFeed() {
+        return feed;
     }
 
-    public void setTotalResults(int totalResults) {
-        this.totalResults = totalResults;
+    public void setFeed(FeedModel feed) {
+        this.feed = feed;
     }
 
-    public List<NewsModel> getArticles() {
-        return articles;
+    public List<ItemModel> getItems() {
+        return items;
     }
 
-    public void setArticles(List<NewsModel> articles) {
-        this.articles = articles;
+    public void setItems(List<ItemModel> items) {
+        this.items = items;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

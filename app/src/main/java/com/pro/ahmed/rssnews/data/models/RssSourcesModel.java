@@ -8,14 +8,27 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "RssSources")
 public class RssSourcesModel {
 
-    @NonNull
-    private String rssName;
-
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    public RssSourcesModel(String rssName) {
-    this.rssName = rssName;
+    @NonNull
+    private String rssName;
+
+    @NonNull
+    private String rssUrl;
+
+
+    public RssSourcesModel(@NonNull String rssName, @NonNull String rssUrl) {
+        this.rssName = rssName;
+        this.rssUrl = rssUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @NonNull
@@ -27,11 +40,21 @@ public class RssSourcesModel {
         this.rssName = rssName;
     }
 
-    public int getId() {
-        return id;
+    @NonNull
+    public String getRssUrl() {
+        return rssUrl;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRssUrl(@NonNull String rssUrl) {
+        this.rssUrl = rssUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "RssSourcesModel{" +
+                "rssName='" + rssName + '\'' +
+                ", rssUrl='" + rssUrl + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

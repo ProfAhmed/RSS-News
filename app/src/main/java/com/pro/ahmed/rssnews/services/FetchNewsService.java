@@ -36,6 +36,7 @@ public class FetchNewsService extends Service {
         super.onCreate();
         iSyncService = new SyncServiceSupportImpl();
 
+        Toast.makeText(this, "Service Start", Toast.LENGTH_SHORT).show();
         newsViewModel = new NewsViewModel();
         if (mTimer != null) // Cancel if already existed
             mTimer.cancel();
@@ -59,15 +60,16 @@ public class FetchNewsService extends Service {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    getFromDB();
+                    getRssFromDB();
                 }
             });
         }
     }
 
-    private static void getFromDB() {
+    private static void getRssFromDB() {
 
         new AsyncTask<Void, Void, List<RssSourcesModel>>() {
+
             @Override
             protected List<RssSourcesModel> doInBackground(Void... aVoid) {
                 iEntities = iSyncService.getRssSources();
@@ -76,17 +78,10 @@ public class FetchNewsService extends Service {
 
             @Override
             protected void onPostExecute(List<RssSourcesModel> rssSourcesModels) {
-                String sources = "";
-                for (int i = 0; i < rssSourcesModels.size(); i++) {
-                    sources = sources + rssSourcesModels.get(i).getRssName();
-                    if ((rssSourcesModels.size() - i) != 1) {
-                        sources = sources + ",";
-                    }
-                }
-                Log.v("RssService", sources);
-                newsViewModel.refreshNews(sources);
+
+                Log.v("RssService", rssSourcesModels.toString());
+                newsViewModel.refreshNews(rssSourcesModels);
             }
         }.execute();
     }
-
 }

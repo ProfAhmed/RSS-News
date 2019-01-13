@@ -5,15 +5,15 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.pro.ahmed.rssnews.data.models.NewsModel;
+import com.pro.ahmed.rssnews.data.models.ItemModel;
 
 import java.util.List;
 
 @Dao
 public interface IrNewsDao {
     @Insert
-    void insert(NewsModel newsModel);
+    void insert(ItemModel newsModel);
 
     @Query("Select * From News")
-    LiveData<List<NewsModel>> getAllNews();
+    LiveData<List<ItemModel>> getAllNews();
 }

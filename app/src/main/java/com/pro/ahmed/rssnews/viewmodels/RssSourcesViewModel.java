@@ -1,5 +1,6 @@
 package com.pro.ahmed.rssnews.viewmodels;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
@@ -23,8 +24,16 @@ public class RssSourcesViewModel extends ViewModel {
         return listRssSources;
     }
 
+    public LiveData<Boolean> insertRssSource(RssSourcesModel sourcesModel) {
+        return Repository.getInstance().insertRssSource(sourcesModel);
+    }
+
     private void loadItemsFromRepository() {
         Log.e(TAG, "_LoadFromDB");
         listRssSources = Repository.getInstance().getAllRssSources();
+    }
+
+    public void deleteRssSource(RssSourcesModel sources) {
+        Repository.getInstance().deleteRssSource(sources);
     }
 }
