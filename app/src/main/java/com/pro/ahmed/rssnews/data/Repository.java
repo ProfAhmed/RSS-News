@@ -59,13 +59,18 @@ public class Repository {
         executor.execute(() -> {
             try {
                 for (int k = 0; k < sources.size(); k++) {
-                    Response<ApiResponseModel> response = mService.getAllNews(sources.get(k).getRssUrl()).execute();
-                    if (response.body().getStatus().equals("ok")) {
-                        for (int i = 0; i < response.body().getItems().size(); i++) {
-                            ItemModel newsModel = response.body().getItems().get(i);
-                            db.newsDao().insert(newsModel);
+                    if (sources.get(k).getChecked()) {
+                        Response<ApiResponseModel> response = mService.getAllNews(sources.get(k).getRssUrl()).execute();
+                        if (response.body().getStatus().equals("ok")) {
+                            for (int i = 0; i < response.body().getItems().size(); i++) {
+                                ItemModel newsModel = response.body().getItems().get(i);
+                                newsModel.setRssId(sources.get(k).getId());
+                                db.newsDao().insert(newsModel);
+                            }
+                            Log.v("ResponseIs", response.body().feed + " " + k);
+                        } else {
+                            continue;
                         }
-                        Log.v("ResponseIs", response.body().feed + " " + k);
                     } else {
                         continue;
                     }
@@ -111,4 +116,15 @@ public class Repository {
         });
     }
 
+    public void updateRssSource(RssSourcesModel sources) {
+        executor.execute(() -> {
+            rssSourcesDao.update(sources);
+        });
+    }
+
+    public void deletItems(int rssId) {
+        executor.execute(() -> {
+            newsDao.delete(rssId);
+        });
+    }
 }

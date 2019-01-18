@@ -7,12 +7,12 @@ import android.arch.persistence.room.RoomDatabase;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.pro.ahmed.rssnews.DataProcessor;
+import com.pro.ahmed.rssnews.utils.DataProcessor;
 import com.pro.ahmed.rssnews.MyApplication;
 import com.pro.ahmed.rssnews.data.models.ItemModel;
 import com.pro.ahmed.rssnews.data.models.RssSourcesModel;
 
-import static com.pro.ahmed.rssnews.Constants.FIRST_RUN;
+import static com.pro.ahmed.rssnews.utils.Constants.FIRST_RUN;
 
 
 @Database(entities = {ItemModel.class, RssSourcesModel.class}, version = 1)
@@ -64,13 +64,13 @@ public abstract class NewsDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            RssSourcesModel rssSourcesModel0 = new RssSourcesModel("TechCrunch", "https://www.TechCrunch.com/rss");
+            RssSourcesModel rssSourcesModel0 = new RssSourcesModel("TechCrunch", "https://www.TechCrunch.com/rss", true);
             mDao.insert(rssSourcesModel0);
 
-            RssSourcesModel rssSourcesModel1 = new RssSourcesModel("Mashable", "https://www.Mashable.com/rss");
+            RssSourcesModel rssSourcesModel1 = new RssSourcesModel("Mashable", "https://www.Mashable.com/rss", true);
             mDao.insert(rssSourcesModel1);
 
-            RssSourcesModel rssSourcesModel2 = new RssSourcesModel("Business-insider", "https://markets.businessinsider.com/rss/news");
+            RssSourcesModel rssSourcesModel2 = new RssSourcesModel("Business-insider", "https://markets.businessinsider.com/rss/news", true);
             mDao.insert(rssSourcesModel2);
 
             return null;

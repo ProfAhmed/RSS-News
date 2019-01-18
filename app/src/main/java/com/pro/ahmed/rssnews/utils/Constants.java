@@ -1,4 +1,4 @@
-package com.pro.ahmed.rssnews;
+package com.pro.ahmed.rssnews.utils;
 
 public class Constants {
     public final static String BASE_URL = "https://api.rss2json.com/v1/";

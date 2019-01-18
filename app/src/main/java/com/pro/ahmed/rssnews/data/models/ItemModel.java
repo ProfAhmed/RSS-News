@@ -1,13 +1,20 @@
 package com.pro.ahmed.rssnews.data.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
 
-@Entity(tableName = "News")
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "News", foreignKeys = @ForeignKey(entity = RssSourcesModel.class,
+        parentColumns = "id",
+        childColumns = "rssId",
+        onDelete = CASCADE))
 public class ItemModel {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
     public String title;
@@ -18,6 +25,7 @@ public class ItemModel {
     public String thumbnail;
     public String description;
     public String content;
+    public int rssId;
     @Ignore
     public EnclosureModel enclosure;
     @Ignore
@@ -113,6 +121,14 @@ public class ItemModel {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
+    }
+
+    public int getRssId() {
+        return rssId;
+    }
+
+    public void setRssId(int itemId) {
+        this.rssId = itemId;
     }
 
     @Override

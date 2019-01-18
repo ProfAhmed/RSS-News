@@ -36,4 +36,8 @@ public class RssSourcesViewModel extends ViewModel {
     public void deleteRssSource(RssSourcesModel sources) {
         Repository.getInstance().deleteRssSource(sources);
     }
+
+    public void updateRssSource(RssSourcesModel sources) {
+        Repository.getInstance().updateRssSource(sources);
+    }
 }

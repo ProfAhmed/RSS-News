@@ -17,10 +17,12 @@ public class RssSourcesModel {
     @NonNull
     private String rssUrl;
 
+    private Boolean isChecked;
 
-    public RssSourcesModel(@NonNull String rssName, @NonNull String rssUrl) {
+    public RssSourcesModel(@NonNull String rssName, @NonNull String rssUrl, Boolean isChecked) {
         this.rssName = rssName;
         this.rssUrl = rssUrl;
+        this.isChecked = isChecked;
     }
 
     public int getId() {
@@ -49,12 +51,21 @@ public class RssSourcesModel {
         this.rssUrl = rssUrl;
     }
 
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public String toString() {
         return "RssSourcesModel{" +
-                "rssName='" + rssName + '\'' +
+                "id=" + id +
+                ", rssName='" + rssName + '\'' +
                 ", rssUrl='" + rssUrl + '\'' +
-                ", id=" + id +
+                ", isChecked=" + isChecked +
                 '}';
     }
 }

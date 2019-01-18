@@ -1,6 +1,6 @@
 package com.pro.ahmed.rssnews.data.api;
 
-import static com.pro.ahmed.rssnews.Constants.BASE_URL;
+import static com.pro.ahmed.rssnews.utils.Constants.BASE_URL;
 
 public class ApiUtils {
     private ApiUtils() {

@@ -33,4 +33,8 @@ public class NewsViewModel extends ViewModel {
     public void refreshNews(List<RssSourcesModel> sources) {
         Repository.getInstance().refreshNews(sources);
     }
+
+    public void deleteItems(int rssId) {
+        Repository.getInstance().deletItems(rssId);
+    }
 }

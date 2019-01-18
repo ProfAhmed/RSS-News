@@ -1,4 +1,4 @@
-package com.pro.ahmed.rssnews;
+package com.pro.ahmed.rssnews.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
