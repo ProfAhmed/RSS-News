@@ -57,6 +57,9 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Custom tab
+    implementation 'com.android.support:customtabs:28.0.0'
+
     //Android Debug Database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 

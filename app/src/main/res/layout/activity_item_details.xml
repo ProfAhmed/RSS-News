@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:onClick="openUrl"
         android:text="Open Url"
         android:textAllCaps="false"

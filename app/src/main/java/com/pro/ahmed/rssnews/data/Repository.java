@@ -47,6 +47,10 @@ public class Repository {
         return db.rssSourcesDao().getAllRss();
     }
 
+    public LiveData<List<RssSourcesModel>> getAllRssSourcesLiveData() {
+        return db.rssSourcesDao().getAllRssLivData();
+    }
+
     //get All News From News Table in Room Db
     public LiveData<List<ItemModel>> getAllNews() {
 //        refreshNews(sources, page);
@@ -59,7 +63,7 @@ public class Repository {
         executor.execute(() -> {
             try {
                 for (int k = 0; k < sources.size(); k++) {
-                    if (sources.get(k).getChecked()) {
+                    if (sources.get(k).isChecked()) {
                         Response<ApiResponseModel> response = mService.getAllNews(sources.get(k).getRssUrl()).execute();
                         if (response.body().getStatus().equals("ok")) {
                             for (int i = 0; i < response.body().getItems().size(); i++) {
@@ -83,24 +87,25 @@ public class Repository {
         });
     }
 
-
-    public LiveData<Boolean> insertRssSource(RssSourcesModel rssSource) {
+    public LiveData<Long> insertRssSource(RssSourcesModel rssSource) {
         mService = ApiUtils.getAPIService();
-        MutableLiveData<Boolean> success = new MutableLiveData<>();
+        MutableLiveData<Long> success = new MutableLiveData<>();
+        final long i = -1;
         executor.execute(() -> {
             Response<ApiResponseModel> response;
             try {
                 response = mService.getAllNews(rssSource.getRssUrl()).execute();
                 if (response.body() != null) {
                     if (response.body().getStatus().equals("ok")) {
-                        db.rssSourcesDao().insert(rssSource);
-                        success.postValue(true);
+                        long rssId = db.rssSourcesDao().insert(rssSource);
+                        success.postValue(rssId);
 
                     } else {
-                        success.postValue(false);
+
+                        success.postValue(i);
                     }
                 } else {
-                    success.postValue(false);
+                    success.postValue(i);
                 }
             } catch (IOException e) {
                 Log.v("ResponseIsS", e.getMessage());
@@ -122,9 +127,35 @@ public class Repository {
         });
     }
 
-    public void deletItems(int rssId) {
+    public void insertNewItem(RssSourcesModel rssSourcesModel) {
+        mService = ApiUtils.getAPIService();
+        executor.execute(() -> {
+            try {
+                Response<ApiResponseModel> response = mService.getAllNews(rssSourcesModel.getRssUrl()).execute();
+                if (response.body().getStatus().equals("ok")) {
+                    for (int i = 0; i < response.body().getItems().size(); i++) {
+                        ItemModel newsModel = response.body().getItems().get(i);
+                        newsModel.setRssId(rssSourcesModel.getId());
+                        try {
+                            db.newsDao().insert(newsModel);
+
+                        } catch (Exception e) {
+                            Log.v("InsertException", e.getMessage());
+                        }
+                    }
+                    Log.v("ResponseIs", response.body().feed.toString());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
+    public void deleteItems(long rssId) {
         executor.execute(() -> {
             newsDao.delete(rssId);
         });
     }
+
 }

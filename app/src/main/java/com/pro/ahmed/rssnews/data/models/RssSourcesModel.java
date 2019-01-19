@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 public class RssSourcesModel {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @NonNull
     private String rssName;
@@ -25,11 +25,11 @@ public class RssSourcesModel {
         this.isChecked = isChecked;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -51,7 +51,7 @@ public class RssSourcesModel {
         this.rssUrl = rssUrl;
     }
 
-    public Boolean getChecked() {
+    public Boolean isChecked() {
         return isChecked;
     }
 

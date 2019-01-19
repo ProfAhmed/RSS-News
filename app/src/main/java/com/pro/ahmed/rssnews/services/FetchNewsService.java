@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.pro.ahmed.rssnews.data.models.RssSourcesModel;
 import com.pro.ahmed.rssnews.helper.SyncServiceSupportImpl;
-import com.pro.ahmed.rssnews.viewmodels.NewsViewModel;
+import com.pro.ahmed.rssnews.viewmodels.ItemsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.TimerTask;
 
 public class FetchNewsService extends Service {
     public static final int notify = 10 * 60 * 1000;  //interval between two services(Here Service run every 10 Minute)
-    private static NewsViewModel newsViewModel;
+    private static ItemsViewModel newsViewModel;
     private Handler mHandler = new Handler();   //run on another Thread to avoid crash
     private Timer mTimer = null;    //timer handling
 
-    private static List<RssSourcesModel> iEntities = new ArrayList<>();
+    private static List<RssSourcesModel> rssSourcesModelList = new ArrayList<>();
     private static SyncServiceSupportImpl iSyncService;
 
     @Override
@@ -37,7 +37,7 @@ public class FetchNewsService extends Service {
         iSyncService = new SyncServiceSupportImpl();
 
         Toast.makeText(this, "Service Start", Toast.LENGTH_SHORT).show();
-        newsViewModel = new NewsViewModel();
+        newsViewModel = new ItemsViewModel();
         if (mTimer != null) // Cancel if already existed
             mTimer.cancel();
         else
@@ -72,8 +72,8 @@ public class FetchNewsService extends Service {
 
             @Override
             protected List<RssSourcesModel> doInBackground(Void... aVoid) {
-                iEntities = iSyncService.getRssSources();
-                return iEntities;
+                rssSourcesModelList = iSyncService.getRssSources();
+                return rssSourcesModelList;
             }
 
             @Override

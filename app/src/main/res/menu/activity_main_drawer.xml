@@ -10,6 +10,10 @@
         <item
             android:id="@+id/nav_your_rss"
             android:title="Your Rss" />
+
+        <item
+            android:id="@+id/nav_read_later"
+            android:title="Read Later" />
     </group>
 
 </menu>

@@ -16,7 +16,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class ItemModel {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
     public String title;
     public String pubDate;
     public String link;
@@ -25,7 +25,7 @@ public class ItemModel {
     public String thumbnail;
     public String description;
     public String content;
-    public int rssId;
+    public long rssId;
     @Ignore
     public EnclosureModel enclosure;
     @Ignore
@@ -35,11 +35,11 @@ public class ItemModel {
     public ItemModel() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -123,11 +123,11 @@ public class ItemModel {
         this.categories = categories;
     }
 
-    public int getRssId() {
+    public long getRssId() {
         return rssId;
     }
 
-    public void setRssId(int itemId) {
+    public void setRssId(long itemId) {
         this.rssId = itemId;
     }
 

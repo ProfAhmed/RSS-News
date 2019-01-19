@@ -18,5 +18,5 @@ public interface IrNewsDao {
     LiveData<List<ItemModel>> getAllNews();
 
     @Query("Delete from News where rssId =:rssModelId")
-    void delete(int rssModelId);
+    void delete(long rssModelId);
 }

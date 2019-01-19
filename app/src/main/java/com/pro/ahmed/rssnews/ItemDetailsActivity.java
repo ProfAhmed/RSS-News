@@ -1,9 +1,12 @@
 package com.pro.ahmed.rssnews;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +24,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
     ImageView ivImage;
     @BindView(R.id.tvContent)
     TextView tvContent;
-    @BindView(R.id.btnOpen)
-    Button btnOpen;
     private ItemModel itemModel;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         itemModel = HomeFragment.mItemModel;
         setData();
+
     }
 
     private void setData() {
@@ -39,13 +41,31 @@ public class ItemDetailsActivity extends AppCompatActivity {
             Picasso.get().load(itemModel.getThumbnail()).into(ivImage);
 
         } catch (Exception e) {
-
         }
 
         tvContent.setText(itemModel.getDescription());
     }
 
     public void openUrl(View v) {
-        Toast.makeText(this, itemModel.getLink(), Toast.LENGTH_SHORT).show();
+
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(itemModel.getLink()));
+    }
+
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        getMenuInflater().inflate(R.menu.item_details_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            Toast.makeText(this, "AAA", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

@@ -1,13 +1,11 @@
 package com.pro.ahmed.rssnews.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.pro.ahmed.rssnews.R;
@@ -21,10 +19,9 @@ import butterknife.ButterKnife;
 public class RssAdapter extends RecyclerView.Adapter<RssAdapter.RssViewHolder> {
     private OnItemClickListener listener;
     List<RssSourcesModel> mRssModelList;
-    Context mContext;
 
-    public RssAdapter(Context mContext) {
-        this.mContext = mContext;
+    public RssAdapter() {
+
     }
 
 
@@ -41,7 +38,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.RssViewHolder> {
     public void onBindViewHolder(@NonNull RssViewHolder rssViewHolder, int i) {
         RssSourcesModel rssModel = mRssModelList.get(i);
         rssViewHolder.tvRssName.setText(rssModel.getRssName());
-        rssViewHolder.cbBox.setChecked(rssModel.getChecked());
+        rssViewHolder.cbBox.setChecked(rssModel.isChecked());
     }
 
     @Override
@@ -74,9 +71,10 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.RssViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            cbBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            cbBox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View v) {
+                    boolean isChecked = cbBox.isChecked();
                     int position = getAdapterPosition();
                     if (isChecked) {
                         if (listener != null && position != RecyclerView.NO_POSITION) {
@@ -89,6 +87,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.RssViewHolder> {
                     }
                 }
             });
+
         }
     }
 
